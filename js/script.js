@@ -11,7 +11,8 @@
 		//레이아웃이 가운데 정렬일때 레이어가 붙는 태그명		
 	}
 	$('#floatdiv').Floater(options);
-		
+	
+	
 	var menu = $('#menuWrap>ul>li');
 	var contents = $('#contents>div');
 	var btn = $('#floatdiv ul li');
@@ -34,7 +35,7 @@
 		var tg = $(this);
 		var i = tg.index();
 		var section= contents.eq(i);
-		var tt = section.offset().top; 
+		var tt = section.offset().top-120; 
 		// top값을 받아옴
 		$('html,body').stop().animate({scrollTop:tt});
 		/* menu.removeClass();
@@ -61,12 +62,17 @@
 				};
 				
 			});
+			//profile 나타내기
+			var profileTop=$('#profile').offset().top;
+			if(sct>=profileTop-500){
+				$('#profile').animate({opacity:1},2000);
+			};
 		}); 
 	// window에게 scroll이 발생하면 실행하라
 	// click 없이 Top값을 받아 그 위치의 버튼을 활성화 시켜줌
 	
 	//#graphic
-	var current = 0;
+	var current = 1;
 	var thumbListSize = 5;
 	var thumbnail = $('#graphicBox');
 	var prev = thumbnail.find('>.left');
@@ -163,4 +169,25 @@
 			current=n;
 		return false;
 	});
+	
+	// typingtxt
+	var typingBool=false;
+	var typingIdx=0;
+	var typingtxt=$('.typing_txt').text();
+	
+	typingtxt=typingtxt.split("");
+	if(typingBool==false){ // 타이핑이 진행되지 않았다면 
+       typingBool=true; 
+       
+       var tyInt = setInterval(typing,100); // 반복동작 
+     } 
+	 
+	 function typing(){
+		 if(typingIdx<typingtxt.length){
+			 $('.typing').append(typingtxt[typingIdx]);
+			 
+			 typingIdx++;}else{
+				 clearInterval(tyInt);
+			 }
+		 };
 });
